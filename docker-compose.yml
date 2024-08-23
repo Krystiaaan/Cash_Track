@@ -3,14 +3,14 @@ version: '3.7'
 services:
   db:
     container_name: db
-    image: postgres:15
+    image: postgres:16
     restart: unless-stopped
     environment:
         POSTGRES_DB: cashtrackDB
         POSTGRES_USER: cashtrackDBUser
         POSTGRES_PASSWORD: 123
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - db-data:/var/lib/postgresql/data
 
