@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, {JwtPayload, SignOptions} from "jsonwebtoken";
 import { db } from "../drizzle/db";
@@ -34,6 +34,7 @@ const generateToken = (payload: JwtUserData) => {
     return jwt.sign(payload, JWT_SECRET, JWT_OPTIONS);
 };
 const verifyToken = (token: string) => {
+    
     return jwt.verify(token, JWT_SECRET) as JWTToken;
 };
 
@@ -42,6 +43,7 @@ const prepareAuthentication = async (req: Request, _res: Response, next: NextFun
     if (authHeader) {
       try {
         const token = verifyToken(authHeader);
+
         req.user = await db.query.UserTable.findFirst({
           where: eq(UserTable.id, token.id),
         });

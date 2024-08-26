@@ -53,7 +53,7 @@ router.post("/register", async(req: Request, res: Response) =>{
 }); 
 router.post("/login", async(req: Request, res: Response)=> {
     const validationResult = LoginSchema.safeParse(req.body);
-
+    
     if(!validationResult.success){
         return res.status(400).send({ errors: validationResult.error.errors });
     }
