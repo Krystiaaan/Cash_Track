@@ -1,6 +1,5 @@
 import { pgTable, timestamp, uuid, varchar, integer,date, pgEnum, json, boolean} from "drizzle-orm/pg-core"
 
-
 export const UserTable = pgTable("User", {
     id: uuid("id").primaryKey().defaultRandom(),
     username: varchar("username", {length: 255}).unique().notNull(),
