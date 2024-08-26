@@ -3,13 +3,13 @@ import  { z} from "zod";
 export const RegisterUserSchema = z.object({
     email: z.string().email("Invalid email format"),
     username: z.string().min(3, "Username must be at least 3 characters long"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
+    passwordHash: z.string().min(6, "Password must be at least 6 characters long"),
     currency: z.string().length(3, "Currency must be a 3-letter code"),
 });
 export type RegisterUserDTO = z.infer<typeof RegisterUserSchema>;
 
 export const LoginSchema = z.object({
-    eMail: z.string().email({
+    email: z.string().email({
         message: "Invalid email format"
     }),
     password: z.string()
