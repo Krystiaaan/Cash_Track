@@ -44,6 +44,7 @@ router.get("/:userId", async(req: Request, res: Response) =>{
         return res.status(503).json({error: "Service Unavailable"});
     }
 });
+// Route to delete a user
 router.delete("/:userId", async(req: Request, res: Response)=>{
     try {
         const user = await db.select().from(UserTable).where(eq(UserTable.id, req.params.userId));
@@ -64,6 +65,7 @@ router.delete("/:userId", async(req: Request, res: Response)=>{
         return res.status(503).json({error: "Service Unvailable"});
     }
 });
+// Route to update User by ID
 router.put("/:userId", async(req: Request, res: Response)=> {
     try {
         const user = await db.select().from(UserTable).where(eq(UserTable.id, req.params.userId));
@@ -75,7 +77,7 @@ router.put("/:userId", async(req: Request, res: Response)=> {
             username:req.body.username,
             currency:req.body.currency,
             passwordHash:req.body.passwordHash,
-        }).where(eq(UserTable.id, req.params.user_id)).returning({
+        }).where(eq(UserTable.id, req.params.userId)).returning({
             id:UserTable.id,
             email:UserTable.email,
             username:UserTable.username,
