@@ -4,6 +4,7 @@ import { AuthController } from "./controller/auth.controller";
 import { UserController } from "./controller/user.controller";
 import { AccountController }from "./controller/account.controller";
 import { TransactionController } from "./controller/transaction.controller";
+import { CategoriesController } from "./controller/categories.controller";
 import { Auth } from "./middleware/auth.middleware";
 import path from "path"
 import http from "http";
@@ -25,6 +26,7 @@ export const initializeServer = async () => {
   app.use("/users", Auth.verifyAccess, UserController);
   app.use("/accounts", Auth.verifyAccess, AccountController);
   app.use("/transactions", Auth.verifyAccess, TransactionController);
+  app.use("/categories", Auth.verifyAccess, CategoriesController);
 
 
   DI.server= app.listen(PORT, () => {
