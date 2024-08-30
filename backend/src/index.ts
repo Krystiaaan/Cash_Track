@@ -3,6 +3,7 @@ import express from "express";
 import { AuthController } from "./controller/auth.controller";
 import { UserController } from "./controller/user.controller";
 import { AccountController }from "./controller/account.controller";
+import { TransactionController } from "./controller/transaction.controller";
 import { Auth } from "./middleware/auth.middleware";
 import path from "path"
 import http from "http";
@@ -23,6 +24,8 @@ export const initializeServer = async () => {
   app.use("/auth",AuthController);
   app.use("/users", Auth.verifyAccess, UserController);
   app.use("/accounts", Auth.verifyAccess, AccountController);
+  app.use("/transactions", Auth.verifyAccess, TransactionController);
+
 
   DI.server= app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
