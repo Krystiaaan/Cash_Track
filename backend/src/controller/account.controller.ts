@@ -42,6 +42,7 @@ router.get("/:userId", async(req: Request, res:Response)=> {
         return res.status(503).json({error: "Service Unavailable"});
     }
 });
+//Route to create a Account
 router.post("/", async(req: Request, res: Response)=>{
     try {
     const {user_id, accountName, accountType, balance, created_at} = req.body;
@@ -68,6 +69,7 @@ router.post("/", async(req: Request, res: Response)=>{
         return res.status(503).json({error: "Service Unavailable"});
     }
 });
+//Route delete account from user
 router.delete("/:userId/:accountId", async(req: Request, res: Response) =>{
 try {
     const {userId, accountId} = req.params;
@@ -85,6 +87,7 @@ try {
     return res.status(503).json({error: "Service Unavailable"});
 }
 });
+//Route to update user
 router.put("/:userId/:accountId", async (req: Request, res: Response) => {
   try {
     const { userId, accountId } = req.params;
