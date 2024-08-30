@@ -85,3 +85,32 @@ try {
     return res.status(503).json({error: "Service Unavailable"});
 }
 });
+router.put("/:userId/:accountId", async (req: Request, res: Response) => {
+  try {
+    const { userId, accountId } = req.params;
+    const {accountName, accountType, balance} = req.body;
+    if (!accountId || !userId) {
+      return res.status(400).json({ message: "invalid account id or user id" });
+    }
+    const updateAccount = await db.update(AccountsTable).set({
+        accountName: accountName,
+        accountType: accountType,
+        balance: balance,
+    }).where(and(eq(AccountsTable.id, accountId), eq(AccountsTable.user_id, userId))).returning({
+        id: AccountsTable.id,
+        user_id: AccountsTable.user_id,
+        accountName: AccountsTable.accountName,
+        accountType: AccountsTable.accountType,
+        balance: AccountsTable.balance,
+    });
+    if (updateAccount.length === 0) {
+        return res.status(404).json({ message: "Account not found or no changes made" });
+    }
+    return res.status(200).json({message: "Account updated successfully", updateAccount});
+  } catch (error) {
+    console.error("Error updating Account", error);
+    return res.status(503).json({ error: "Service Unavailable" });
+  }
+});
+
+export const AccountController = router;
