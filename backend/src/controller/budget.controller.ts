@@ -74,7 +74,7 @@ router.post("/", async(req:Request, res:Response)=>{
         }
         const result = await db.insert(BudgetTable).values(budgetData).returning({
             id: BudgetTable.id
-        });
+        }).execute();
         const budgetId = result[0]?.id;
         if(!budgetId){
             throw new Error("Budget Id did not return from the database");
