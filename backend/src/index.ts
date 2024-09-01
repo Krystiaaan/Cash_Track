@@ -11,6 +11,7 @@ import { ReportController } from "./controller/report.controller";
 import { Auth } from "./middleware/auth.middleware";
 import path from "path"
 import http from "http";
+import { NotificationController } from "./controller/notification.controller";
 
 const PORT = 3000;
 const app = express();
@@ -33,6 +34,7 @@ export const initializeServer = async () => {
   app.use("/budget",Auth.verifyAccess, BudgetController);
   app.use("/savinggoals", Auth.verifyAccess, SavingGoalsController);
   app.use("/reports",Auth.verifyAccess,ReportController);
+  app.use("/notifications", Auth.verifyAccess, NotificationController);
 
 
   DI.server= app.listen(PORT, () => {
