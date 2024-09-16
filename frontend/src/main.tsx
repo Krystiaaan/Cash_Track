@@ -1,9 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { BrowserRouter } from 'react-router-dom'
+import { App } from './App.tsx'
+import cashTrackTheme from './layout/cashTrackTheme.tsx'
+import { ChakraProvider } from '@chakra-ui/react'
+import { BaseLayout } from './layout/baseLayout.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ChakraProvider theme={cashTrackTheme}>
+      <BrowserRouter>
+        <BaseLayout>
+          <App />
+        </BaseLayout>
+      </BrowserRouter>
+    </ChakraProvider>
   </StrictMode>,
 )

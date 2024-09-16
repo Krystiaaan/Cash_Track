@@ -1,10 +1,12 @@
+import {Route, Routes, } from "react-router-dom";
+import { LandingPage } from "./pages/landingPage/LandingPage";
 
-function App() {
 
+
+export const App = () => {
   return (
-    <>
-    </>
-  )
-}
-
-export default App
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+    </Routes>
+  );
+};
