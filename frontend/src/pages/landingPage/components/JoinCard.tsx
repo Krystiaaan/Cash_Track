@@ -1,8 +1,13 @@
 import {Text, Flex, Box, Image} from "@chakra-ui/react"
-
+import { useNavigate } from "react-router-dom"
 import signup from "../../../assets/signup.png"
 
 export const JoinCard = () => {
+  const navigate = useNavigate();
+
+  const handleImageClick = () =>{
+    navigate("/register");
+  }
     return(
         <Box p={"4rem"} width={"100%"} mt={"8rem"}>
             <Flex flexDirection={"column"} width={"100%"} alignItems={"center"}>
@@ -28,7 +33,7 @@ export const JoinCard = () => {
               mb={"2rem"}> Sign up now and see how easy it is to take control of your finances!</Text>
             </Flex>
             <Flex flexDirection={"column"} width={"100%"} alignItems={"center"}>
-              <Image src={signup} alt="Signup button"/>
+              <Image src={signup} alt="Signup button" onClick={handleImageClick} style={{ cursor: "pointer" }} />
               </Flex>
               <Text color="#ECF0F1"
               fontSize="1.8em"
