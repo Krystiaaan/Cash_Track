@@ -38,8 +38,10 @@ export const WhyCard = () => {
               fontWeight="400"
               textAlign="center"
             >
-              Get a clear overview of your financial health at a glance. See
-              your income, expenses, savings, and budget performance
+              Get a clear overview of your financial health at a glance. 
+            </Text>
+            <Text color="#ECF0F1" fontSize="1.8rem" fontWeight="400" mt="2rem">
+            See your income, expenses, savings, and budget performance
             </Text>
             <Text color="#1ABC9C" fontSize="2rem" pt="2rem" fontWeight="400">
               all in real-time.

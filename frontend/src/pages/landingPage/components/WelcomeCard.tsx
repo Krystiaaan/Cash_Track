@@ -11,7 +11,6 @@ export const WelcomeCard = () =>{
               <Text color="#ECF0F1" fontSize="3em" fontWeight="700" textAlign="center">
                 Welcome to
               </Text>
-              
               <Text color="#1ABC9C" fontSize="4em" fontWeight="700" textAlign="center">
                 Cash Track
               </Text>
