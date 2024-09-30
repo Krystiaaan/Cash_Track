@@ -1,6 +1,5 @@
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
 import { AuthController } from "./controller/auth.controller";
 import { UserController } from "./controller/user.controller";
 import { AccountController }from "./controller/account.controller";
@@ -22,11 +21,6 @@ export const DI = {} as {
 };
 
 export const initializeServer = async () => {
-  app.use(cors({
-    origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, 
-  }));
 
   app.use(express.json());
   app.use(Auth.prepareAuthentication);

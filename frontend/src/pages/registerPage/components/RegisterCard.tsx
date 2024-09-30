@@ -1,107 +1,104 @@
-import React from 'react';
-import { useAuth } from '../../../Auth/AuthProvider';
-import { useNavigate } from 'react-router-dom';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup'; // Yup for validation
-
-export const RegisterCard: React.FC = () => {
-  const { register, error } = useAuth(); // Use register function and error from AuthProvider
-  const navigate = useNavigate(); // For redirection after successful registration
-
-  // Validation schema using Yup
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    username: Yup.string()
-      .min(3, 'Username must be at least 3 characters')
-      .required('Username is required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
-    currency: Yup.string().required('Currency is required'), // Add currency validation
+import { Formik, Field } from "formik"
+import * as yup from "yup";
+import { Box, Button, Flex, FormControl, FormLabel, FormErrorMessage, Input, VStack} from "@chakra-ui/react";
+export const RegisterCard = () => {
+  const basicSchema = yup.object().shape({
+    email: yup.string().email("Please enter a valid email").required("Required"),
+    username: yup.string().min(3, 'must be at least 3 characters long').required("Required"),
+    password: yup.string().min(6, 'must be at least 6 characters long').required("Required"),
+    confirmPassword: yup.string().oneOf([yup.ref("password")], "Paswords must match").required("Required"),
+    currency: yup.string().min(3, "Currency must be a 3-letter code").required("Required"),
   });
+  return(
+    <Flex align={"center"} justify={"center"} h={"100vh"}>
+      <Box bg="cash.green" p={6} rounded={"md"} w={"128"}>
+        <Formik
+        initialValues={{
+          email: "",
+          username: "",
+          password: "",
+          confirmPassword: "",
+          currency: "",
+        }}
+        validationSchema={basicSchema}
+        onSubmit={(values)=>{
+          alert(JSON.stringify(values, null, 2));
+        }}
+        >
+          {({handleSubmit, errors, touched}) =>(
+            <form onSubmit={handleSubmit}>
+              <VStack spacing={4} align={"flex-start"}>
+                <FormControl>
+                  <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <Field
+                  as={Input}
+                  id="email"
+                  name="email"
+                  type="email"
+                  variant="filled"/>
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <Field
+                  as={Input}
+                  id="username"
+                  name="username"
+                  type="username"
+                  variant="filled"/>
+                </FormControl>
+                <FormControl isInvalid={!!errors.password && touched.password}>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Field
+                  as={Input}
+                  id="password"
+                  name="password"
+                  type="password"
+                  variant="filled"
+                  validate={(value:string)=>{
+                    let error;
 
-  // Initial form values for Formik
-  const initialValues = {
-    email: '',
-    username: '',
-    password: '',
-    currency: '', // Currency field
-  };
+                    if(value.length < 6){
+                      error = "Password must contain at least 6 characters";
+                    }
+                    return error;
+                  }}
+                  />
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.password && touched.password}>
+                  <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+                  <Field
+                  as={Input}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="confirmPassword"
+                  variant="confirmPassword"
+                  validate={(value:string)=>{
+                    let error;
 
-  // Handle form submission
-  const handleSubmit = async (values: typeof initialValues) => {
-    try {
-      await register(values); // Call register from AuthProvider
-      navigate('/mainpage'); // Redirect to dashboard after successful registration
-    } catch (err) {
-      console.error('Registration failed:', err);
-    }
-  };
-
-  return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-      <h1>Register</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error if exists */}
-
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema} // Apply Yup validation schema
-        onSubmit={handleSubmit} // Call handleSubmit on form submission
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <div style={{ marginBottom: '15px' }}>
-              <label>Email:</label>
-              <Field
-                type="email"
-                name="email"
-                style={{ width: '100%', padding: '8px' }}
-              />
-              <ErrorMessage name="email" component="div"  />
-            </div>
-
-            <div style={{ marginBottom: '15px' }}>
-              <label>Username:</label>
-              <Field
-                type="text"
-                name="username"
-                style={{ width: '100%', padding: '8px' }}
-              />
-              <ErrorMessage name="username" component="div"  />
-            </div>
-
-            <div style={{ marginBottom: '15px' }}>
-              <label>Password:</label>
-              <Field
-                type="password"
-                name="password"
-                style={{ width: '100%', padding: '8px' }}
-              />
-              <ErrorMessage name="password" component="div"  />
-            </div>
-
-            <div style={{ marginBottom: '15px' }}>
-              <label>Currency:</label>
-              <Field
-                type="text"
-                name="currency"
-                style={{ width: '100%', padding: '8px' }}
-              />
-              <ErrorMessage name="currency" component="div"  />
-            </div>
-
-            <button
-              type="submit"
-              style={{ padding: '10px 15px', width: '100%' }}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Registering...' : 'Register'}
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
-  );
-};
+                    if(value.length < 6){
+                      error = "Password must contain at least 6 characters";
+                    }
+                    return error;
+                  }}
+                  />
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="currency">Currency</FormLabel>
+                  <Field
+                  as={Input}
+                  id="currency"
+                  name="currency"
+                  type="currency"
+                  variant="filled"/>
+                </FormControl>
+                <Button type="submit" color={"white"} bg="cash.bg" width={"full"}>Register</Button>
+              </VStack>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </Flex>
+  )
+}

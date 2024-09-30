@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useContext} from 'react';
-import api from "../services/axiosConfig";
-
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -40,7 +39,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children})
     const register = async (userData: RegisterUserDTO) => {
         try{
             setError(null);
-            const response = await api.post('/auth/register', userData);
+            const response = await axios.post('/auth/register', userData);
             const newUser = response.data;
             setUser(newUser);
             localStorage.setItem('user', JSON.stringify(newUser));
@@ -53,7 +52,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children})
     const login = async(email:string, password: string)=>{
         try {
             setError(null);
-            const response = await api.post('/auth/login', {email, password});
+            const response = await axios.post('/auth/login', {email, password});
             const {accessToken, user} = response.data;
 
             localStorage.setItem('token', accessToken);
