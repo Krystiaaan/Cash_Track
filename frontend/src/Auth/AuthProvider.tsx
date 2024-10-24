@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 interface AuthContextType {
     user: User | null;
     error: string | null;
-    register: (userData: RegisterUserDTO) => Promise<void>;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
 }
@@ -14,11 +13,6 @@ interface User {
     id: string;
     email: string;
     username: string;
-}
-interface RegisterUserDTO{
-    email: string;
-    username: string;
-    password: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,19 +30,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children})
         }
     }, []);
 
-    const register = async (userData: RegisterUserDTO) => {
-        try{
-            setError(null);
-            const response = await axios.post('/auth/register', userData);
-            const newUser = response.data;
-            setUser(newUser);
-            localStorage.setItem('user', JSON.stringify(newUser));
-            navigate('/mainpage');
 
-        }catch(err: any){
-            setError(err.response?.data?.errors?.[0]||'Registration failed');
-        }
-    }
     const login = async(email:string, password: string)=>{
         try {
             setError(null);
@@ -70,7 +52,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children})
         navigate('/login');
     };
     return(
-        <AuthContext.Provider value ={{user, error, register, login, logout}}>
+        <AuthContext.Provider value ={{user, error, login, logout}}>
             {children}
         </AuthContext.Provider>
     );

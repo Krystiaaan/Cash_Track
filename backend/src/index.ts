@@ -12,9 +12,11 @@ import { Auth } from "./middleware/auth.middleware";
 import path from "path"
 import http from "http";
 import { NotificationController } from "./controller/notification.controller";
-
+import cors from "cors";
 const PORT = 3000;
 const app = express();
+
+app.use(cors());
 
 export const DI = {} as {
   server: http.Server;

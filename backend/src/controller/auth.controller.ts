@@ -11,7 +11,7 @@ const router = Router({mergeParams: true});
 
 router.post("/register", async(req: Request, res: Response) =>{
     const validationResult = RegisterUserSchema.safeParse(req.body);
-
+    console.log(validationResult);
     if(!validationResult.success){
         return res.status(400).send({ errors: validationResult.error.errors });
     }
