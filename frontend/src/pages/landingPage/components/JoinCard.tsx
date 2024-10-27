@@ -8,6 +8,9 @@ export const JoinCard = () => {
   const handleImageClick = () =>{
     navigate("/register");
   }
+  const handleLoginClick = () =>{
+    navigate("/login");
+  }
     return(
         <Box p={"4rem"} width={"100%"} mt={"8rem"}>
             <Flex flexDirection={"column"} width={"100%"} alignItems={"center"}>
@@ -39,7 +42,7 @@ export const JoinCard = () => {
               fontSize="1.8em"
               fontWeight="400"
               textAlign="center"
-              mb={"2rem"}>Or {" "}<Text as="span" color="#1ABC9C" fontWeight="700">
+              mb={"2rem"}>Or {" "}<Text as="span" color="#1ABC9C" fontWeight="700" onClick={handleLoginClick} style={{cursor: "pointer"}}> 
               Login {" "}
             </Text>
               if you already have an account.

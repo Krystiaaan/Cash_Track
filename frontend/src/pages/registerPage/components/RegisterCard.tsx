@@ -12,8 +12,14 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
+import { useNavigate } from "react-router-dom";
 export const RegisterCard = () => {
+const navigate = useNavigate();
+
+const handleLoginClick = () => {
+  navigate("/login");
+}
+
   return (
     <Formik
       initialValues={{
@@ -261,7 +267,7 @@ export const RegisterCard = () => {
 
               <Text color={"white"}>
                 Already have an Account?{" "}
-                <Text as={"span"} color={"#2C3E50"} style={{ cursor: "pointer" }}>
+                <Text as={"span"} color={"#2C3E50"} style={{ cursor: "pointer" }} onClick={handleLoginClick}>
                   Login now!
                 </Text>
               </Text>
