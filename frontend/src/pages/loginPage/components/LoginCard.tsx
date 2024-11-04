@@ -13,8 +13,10 @@ import { Formik, Form, Field } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../Auth/AuthProvider";
 
 export const LoginCard = () => {
+  const {login} = useAuth();
     const [serverError, setServerError] = useState({email: "", password: ""});
     const navigate = useNavigate();
     const handleCreateClick = () => {
@@ -35,33 +37,12 @@ export const LoginCard = () => {
           .min(6),
       })}
       onSubmit={async (values, { setSubmitting }) => {
-        setServerError({email: "", password: ""});
+        setServerError({ email: "", password: "" });
         try {
-          const response = await fetch("http://localhost:3000/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: values.email,
-              password: values.password,
-            }),
-          });
-          const data = await response.json();
-          console.log(data);
-          if (response.ok) {
-            navigate("/mainpage");
-          } else {
-            const errors = data.errors || [];
-            const emailError = errors.includes("User does not exist")
-            ? "User does not exist" : "";
-            const passwordError = errors.includes("Incorrect password")
-            ? "Incorrect password"
-            : "";
-            setServerError({email: emailError, password: passwordError});
-          }
+          await login(values.email, values.password);
         } catch (err) {
-          console.error("login failed", err);
+          // Handle errors if needed
+          setServerError({ email: "", password: "Login failed" });
         } finally {
           setSubmitting(false);
         }
@@ -121,7 +102,7 @@ export const LoginCard = () => {
                       },
                     }}
                   >
-                    Enter your Username:
+                    Enter your Email:
                   </FormLabel>
                 </Box>
                 <Box

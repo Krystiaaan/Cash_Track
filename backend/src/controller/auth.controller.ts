@@ -73,7 +73,13 @@ router.post("/login", async(req: Request, res: Response)=> {
         username:user.username,
     });
 
-    res.status(200).send({accessToken: jwt});
+    res.status(200).send({accessToken: jwt,
+        user: {
+            id: user.id,
+            email: user.email,
+            username: user.username
+        }
+    });
 })
 
 export const AuthController = router;
