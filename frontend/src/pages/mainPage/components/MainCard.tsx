@@ -1,106 +1,66 @@
 import {
-  Box,
-  Flex,
-  VStack,
   Text,
   Divider,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Icon,
-  IconButton,
-  Avatar,
-  
+  Box,
 } from "@chakra-ui/react";
-import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
-import { useAuth } from "../../../Auth/AuthProvider";
-export const MainCard = () => {
-    const { user } = useAuth();
-    console.log(user);
+import { useEffect, useState } from "react";
+import { MainMenuProps } from "../../interfaces/MainPageInterface";
+import { FuncCard } from "./FuncCard";
+import Draggable from "react-draggable";
+
+export const MainCard = ({ user }: MainMenuProps) => {
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    const formatDate = () => {
+      const today = new Date();
+      const formattedDate = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+      }).format(today);
+      setCurrentDate(formattedDate);
+    };
+    formatDate();
+  }, []);
+
   return (
-    <Box
-      bg={"#1ABC9C"}
-      color={"white"}
-      w={"300px"}
-      h={"100vh"}
-      p={"4"}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"space-between"}
-      borderRightRadius={"1.6rem"}
-    >
-      <VStack align={"start"}>  
-      {/* Header with user info */}
-        <Flex align={"center"}>
-          <Box ml={"3"}>
-            <Text fontWeight={"bold"}>{user?.username}</Text>
-            <Text fontSize={"sm"}>{user?.email}</Text>
-          </Box>
-        </Flex>
+    <Box flex={1}>
+      <Box>
+        <Text ml={"2rem"} mt={"0.5rem"} color={"white"} fontSize={"xl"}>
+          Hey, {user.username}!
+        </Text>
+        <Text ml={"2rem"} mt={"0.5rem"} color={"gray.400"} fontSize={"l"}>
+          {currentDate}
+        </Text>
         <Divider
           borderColor="#34495E"
           borderWidth={"0.0625rem"}
-          mt={"0.5rem"}
+          mt={"0.4rem"}
+          ml={"2rem"}
+          width={"96%"}
+          
         />
-        <Box w={"80%"} alignSelf={"center"} mt={"2rem"}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="white" />}
-            />
-            <Input
-              placeholder="Search"
-              bg={"#C0BFBF"}
-              _placeholder={{ color: "#808080" }}
-              rounded={"md"}
-              py={"2"}
-              px={"3"}
-              border={"none"}
-              borderRadius={"1.6rem"}
-            />
-          </InputGroup>
+      </Box>
+      <Box width={"83%"} pos={"absolute"} height={"91%"}overflow={"hidden"}  >
+        <Draggable bounds= "parent">
+        <Box position="absolute">
+          <FuncCard />
         </Box>
-        <VStack align={"start"} spacing={"3"}  ml={"3rem"} mt={"2rem"}>
-            {['Dashboard', 'Accounts','Transactions','Budget', 'Saving Goals', 'Reports', 'Notifications'].map((item) =>(
-                <Text
-                key={item}
-                cursor={"pointer"}
-                _hover={{color: 'teal.600', px:"2"}}
-                w={"full"}
-                py={"1"}
-                >
-                    {item}
-                </Text>
-            ))}
-        </VStack>
-        
-      </VStack> 
-      <Divider
-          borderColor="#34495E"
-          borderWidth={"0.0625rem"}
-          mt={"auto"}
-        />
-        <Box alignSelf={"center"}>
-            <Flex flexDirection={"column"}>
-
-           <IconButton 
-           icon={<Avatar size={"xs"} />}
-           aria-label="User Profile"
-           variant={"ghost"}
-           color={"white"}
-           _hover={{  transform: "scale(1.2)", bg: "transparent" }} 
-           transition={"transform 0.2s"}  
-           />
-           <IconButton 
-           icon={<SettingsIcon />}
-           aria-label="Settings"
-           variant={"ghost"}
-           color={"white"}     
-           _hover={{ transform: "scale(1.2)", bg: "transparent" }} 
-           transition={"transform 0.2s"}  
-           />
-           </Flex>
-            </Box>
+      </Draggable>
+      <Draggable bounds="parent">
+        <Box position="absolute" top="10%" left="40%">
+          <FuncCard />
+        </Box>
+      </Draggable>
+      <Draggable bounds="parent">
+        <Box position="absolute" top="50%" left="15%">
+          <FuncCard />
+        </Box>
+      </Draggable>
+      </Box>
+      
     </Box>
   );
 };
