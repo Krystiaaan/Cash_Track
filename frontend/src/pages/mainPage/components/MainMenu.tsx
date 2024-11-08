@@ -112,6 +112,7 @@ export const MainMenu = ({user} : MainMenuProps) => {
         isOpen={isOpen}
         onClose={handleClose}
         onSubmit={handleSubmit}
+        userId={user.id}
       />
       </VStack> 
       <Divider

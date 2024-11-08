@@ -100,15 +100,16 @@ router.post("/", async (req: Request, res: Response) => {
       created_at,
     } = req.body;
     const transactionData = {
-      userId,
-      accountId,
-      categoryId,
+      user_id: userId,
+      account_id: accountId,
+      category_id: categoryId,
       transactionDate,
       amount,
       description,
       transactionType,
       created_at: created_at ? new Date(created_at) : new Date()
     };
+    console.log("Transaction data to insert:", transactionData);
     const result = await db
       .insert(TransactionsTable)
       .values(transactionData)
