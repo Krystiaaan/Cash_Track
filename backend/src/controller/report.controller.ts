@@ -34,7 +34,7 @@ router.post("/", async(req: Request, res:Response) =>{
             reportType,
             generatedDate,
             parameters,
-            created_at: new Date(created_at)
+            created_at: created_at ? new Date(created_at) : new Date()
         }
 
         const result = await db.insert(ReportsTable).values(reportData)

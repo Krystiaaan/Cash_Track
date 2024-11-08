@@ -44,21 +44,6 @@ export const MainCard = ({ user }: MainMenuProps) => {
         />
       </Box>
       <Box width={"83%"} pos={"absolute"} height={"91%"}overflow={"hidden"}  >
-        <Draggable bounds= "parent">
-        <Box position="absolute">
-          <FuncCard />
-        </Box>
-      </Draggable>
-      <Draggable bounds="parent">
-        <Box position="absolute" top="10%" left="40%">
-          <FuncCard />
-        </Box>
-      </Draggable>
-      <Draggable bounds="parent">
-        <Box position="absolute" top="50%" left="15%">
-          <FuncCard />
-        </Box>
-      </Draggable>
       </Box>
       
     </Box>

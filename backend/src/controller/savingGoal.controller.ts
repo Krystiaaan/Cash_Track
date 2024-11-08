@@ -23,7 +23,7 @@ router.post("/", async(req: Request, res: Response)=>{
             targetAmount: targetAmount,
             currentAmount:currentAmount,
             targetDate:targetDate,
-            created_at: new Date(created_at),
+            created_at: created_at ? new Date(created_at) : new Date()
         };
         const result = await db.insert(SavingGoalsTable).values(savingGoal).returning({
             id: SavingGoalsTable.id,    

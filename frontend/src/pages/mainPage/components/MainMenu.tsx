@@ -11,12 +11,45 @@ import {
   Avatar,
   
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
-
+import { MainModal } from "./MainModal";
 import {MainMenuProps } from "../../interfaces/MainPageInterface";
 
 export const MainMenu = ({user} : MainMenuProps) => {
+  const [selectedItem, setSelectedItem] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleItemClick = (item: string) => {
+    setSelectedItem(item);
+    setIsOpen(true);
+  }
+  const handleClose = () => setIsOpen(false);
+  const handleSubmit = async (data: Record<string,any>) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:3000/${selectedItem?.toLowerCase()}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          ...data,
+          user_id: user.id,
+        }),
+      });
+      if(!response.ok){
+        throw new Error (`Failed to create ${selectedItem}`);
+      }
+      alert(`${selectedItem} wurde erfolgreich erstellt!`);
+      handleClose();
+
+    }catch(error) {
+      console.error(error);
+      alert("error on creating");
+    }
+  }
   return (
     <Box
       bg={"#1ABC9C"}
@@ -68,12 +101,18 @@ export const MainMenu = ({user} : MainMenuProps) => {
                 _hover={{color: 'teal.600', px:"2"}}
                 w={"full"}
                 py={"1"}
+                onClick={() => handleItemClick(item)}
                 >
                     {item}
                 </Text>
             ))}
         </VStack>
-        
+        <MainModal
+        title={selectedItem || ''}
+        isOpen={isOpen}
+        onClose={handleClose}
+        onSubmit={handleSubmit}
+      />
       </VStack> 
       <Divider
           borderColor="#34495E"

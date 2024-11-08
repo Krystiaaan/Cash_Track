@@ -40,14 +40,15 @@ const verifyToken = (token: string) => {
 
 const prepareAuthentication = async (req: Request, _res: Response, next: NextFunction) => {
     const authHeader = req.get("Authorization");
-    if (authHeader) {
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const token = authHeader.slice(7); // Remove 'Bearer ' from the header
       try {
-        const token = verifyToken(authHeader);
+        const decodedToken = verifyToken(token);
 
         req.user = await db.query.UserTable.findFirst({
-          where: eq(UserTable.id, token.id),
+          where: eq(UserTable.id, decodedToken.id),
         });
-        req.token = token;
+        req.token = decodedToken;
       } catch (e) {
         console.error(e);
       }

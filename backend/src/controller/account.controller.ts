@@ -46,13 +46,13 @@ router.get("/:userId", async(req: Request, res:Response)=> {
 router.post("/", async(req: Request, res: Response)=>{
     try {
     const {user_id, accountName, accountType, balance, created_at} = req.body;
-
+        console.log( "user id", user_id);
     const accountData = {
         user_id,
         accountName,
         accountType,
         balance,
-        created_at: new Date(created_at)
+        created_at: created_at ? new Date(created_at) : new Date()
     };
     const result = await db.insert(AccountsTable).values(accountData).returning({
         id: AccountsTable.id

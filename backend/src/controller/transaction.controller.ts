@@ -107,7 +107,7 @@ router.post("/", async (req: Request, res: Response) => {
       amount,
       description,
       transactionType,
-      created_at: new Date(created_at),
+      created_at: created_at ? new Date(created_at) : new Date()
     };
     const result = await db
       .insert(TransactionsTable)

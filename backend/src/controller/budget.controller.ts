@@ -70,7 +70,7 @@ router.post("/", async(req:Request, res:Response)=>{
             amount,
             start_date,
             end_date,
-            created_at: new Date(created_at),
+            created_at: created_at ? new Date(created_at) : new Date(),
         }
         const result = await db.insert(BudgetTable).values(budgetData).returning({
             id: BudgetTable.id
