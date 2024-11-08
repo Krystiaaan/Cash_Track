@@ -101,9 +101,9 @@ export const MainModal: React.FC<MainModalProps> = ({title, isOpen, onClose, onS
 
   return (
     <Box>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} >
             <ModalOverlay />
-            <ModalContent bg={"#1ABC9C"}>
+            <ModalContent  bg={"#1ABC9C"} borderRadius={"1.6rem"} alignSelf={"center"}>
                 <ModalHeader textAlign={"center"} color={"white"}>Your {title}</ModalHeader>
                 <ModalCloseButton />
                 <Divider
