@@ -30,7 +30,7 @@ router.post("/", async(req: Request, res:Response) =>{
             created_at,
         } = req.body;
         const reportData ={
-            userId,
+            user_id: userId,
             reportType,
             generatedDate,
             parameters,

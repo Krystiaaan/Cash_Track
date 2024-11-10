@@ -63,9 +63,10 @@ router.get("/:userId/:categoryId", async(req:Request, res:Response) =>{
 router.post("/", async(req:Request, res:Response)=>{
     try{
         const{userId, categoryId, budgetName, amount, start_date,end_date, created_at} = req.body;
+        console.log(req.body)
         const budgetData = {
-            userId,
-            categoryId,
+            user_id: userId,
+            category_id: categoryId,
             budgetName,
             amount,
             start_date,

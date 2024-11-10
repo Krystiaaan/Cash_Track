@@ -28,7 +28,7 @@ export const MainMenu = ({user} : MainMenuProps) => {
   const handleSubmit = async (data: Record<string,any>) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/${selectedItem?.toLowerCase()}`, {
+      const response = await fetch(`http://localhost:3000/${selectedItem?.toLowerCase().replace(/\s+/g, '')}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const MainMenu = ({user} : MainMenuProps) => {
           </InputGroup>
         </Box>
         <VStack align={"start"} spacing={"3"}  ml={"3rem"} mt={"2rem"}>
-            {['Dashboard', 'Accounts','Transactions','Budget', 'Saving Goals', 'Reports', 'Notifications'].map((item) =>(
+            {['Accounts','Transactions','Budget', 'Saving Goals', 'Reports', 'Notifications', 'Categories'].map((item) =>(
                 <Text
                 key={item}
                 cursor={"pointer"}

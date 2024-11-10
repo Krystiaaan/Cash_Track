@@ -48,8 +48,9 @@ router.get("/:userId", async(req:Request, res:Response)=>{
 router.post("/", async(req: Request, res:Response)=>{
     try{
         const {userId, categoryName, categoryType, created_at } = req.body;
+        console.log("req.body", req.body);
         const CategoryData = {
-            userId,
+            user_id: userId,
             categoryName,
             categoryType,
             created_at: created_at ? new Date(created_at) : new Date()

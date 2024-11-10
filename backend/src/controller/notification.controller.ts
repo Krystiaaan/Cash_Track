@@ -27,7 +27,7 @@ router.post("/", async(req:Request, res:Response)=>{
         const {userId, notificationType, message, isRead, created_at} = req.body;
 
         const notificationData = {
-            userId,
+            user_id: userId,
             notificationType,
             message,
             isRead,

@@ -1,8 +1,4 @@
-import {
-  Text,
-  Divider,
-  Box,
-} from "@chakra-ui/react";
+import { Text, Divider, Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { MainMenuProps } from "../../interfaces/MainPageInterface";
 import { FuncCard } from "./FuncCard";
@@ -40,12 +36,16 @@ export const MainCard = ({ user }: MainMenuProps) => {
           mt={"0.4rem"}
           ml={"2rem"}
           width={"96%"}
-          
         />
       </Box>
-      <Box width={"83%"} pos={"absolute"} height={"91%"}overflow={"hidden"}  >
+      <Box width={"83%"} pos={"absolute"} height={"91%"} overflow={"hidden"}>
+        <Draggable bounds="parent">
+          <Box pos={"absolute"}>
+            <FuncCard />
+          </Box>
+          
+        </Draggable>
       </Box>
-      
     </Box>
   );
 };

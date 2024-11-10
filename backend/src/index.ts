@@ -6,7 +6,7 @@ import { AccountController }from "./controller/account.controller";
 import { TransactionController } from "./controller/transaction.controller";
 import { CategoriesController } from "./controller/categories.controller";
 import { BudgetController } from "./controller/budget.controller";
-import { SavingGoalsController } from "./controller/savingGoal.controller";
+import { SavingGoalsController } from "./controller/savingGoals.controller";
 import { ReportController } from "./controller/report.controller";
 import { Auth } from "./middleware/auth.middleware";
 import path from "path"
