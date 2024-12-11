@@ -122,7 +122,7 @@ export const MainMenu = ({user} : MainMenuProps) => {
         />
         <Box alignSelf={"center"}>
             <Flex flexDirection={"column"}>
-
+            
            <IconButton 
            icon={<Avatar size={"xs"} />}
            aria-label="User Profile"

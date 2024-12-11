@@ -33,8 +33,8 @@ router.get("/", async(req: Request, res: Response) =>{
 //Route to get the budgets from one user
 router.get("/:userId", async(req: Request, res: Response) =>{
     try{
-        const {userId} = req.params;
-        const budgets: Budget[] = await db.select().from(BudgetTable).where(eq(BudgetTable.id,userId));
+        const userId = req.params.userId;
+        const budgets: Budget[] = await db.select().from(BudgetTable).where(eq(BudgetTable.user_id,userId));
         if(budgets.length === 0){
             return res.status(404).json({error: "No Budgets from a user found"});
         }
