@@ -6,14 +6,17 @@ import {
   Divider,
   CardBody,
   VStack,
+  IconButton,
 } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 interface FuncCardProps {
-  fetchedData: any; // The fetched data (an array of accounts or other types of data)
-  type: string; // Type of data being fetched, such as "accounts", "transactions", etc.
+  fetchedData: any; 
+  type: string; 
+  onDelete: () => void;
 }
 
-export const FuncCard = ({ fetchedData, type }: FuncCardProps) => {
+export const FuncCard = ({ fetchedData, type, onDelete }: FuncCardProps) => {
   if (!fetchedData || fetchedData.length === 0) {
     return (
       <Box>
@@ -235,6 +238,16 @@ export const FuncCard = ({ fetchedData, type }: FuncCardProps) => {
             borderWidth={"0.0625rem"}
             mt={"0.4rem"}
             width={"96%"}
+          />
+          <IconButton
+            aria-label="Delete card"
+            icon={<CloseIcon />}
+            size="sm"
+            position="absolute"
+            top="0.5rem"
+            right="0.5rem"
+            colorScheme=""
+            onClick={onDelete}
           />
         </CardHeader>
         <CardBody>
